@@ -30,7 +30,6 @@ if (isset($_POST['enviar'])) {
 function creaFormularioProductos() {
     $productos = DB::obtieneProductos();
     foreach ($productos as $p) {
-        //echo "<p><form id='" . $p->getcodigo() . "' action='productos.php' method='post'>";
         echo "<p><form id='" . $p->getcodigo() . "' action=\"javascript:void(null);\" onsubmit=\"alaCesta(this.id);\">";
         // Metemos ocultos los datos de los productos
         echo "<input type='hidden' name='cod' value='" . $p->getcodigo() . "'/>";
@@ -47,7 +46,6 @@ function muestraCestaCompra($cesta) {
     echo "<hr/>";
     //$cesta->muestra();
     echo "<p id='listaCesta'>Cesta vacia.</p>";
-//    echo "<form id='vaciar' action='productos.php' method='post'>";
     echo "<form id='vaciar' action=\"javascript:void(null);\" onsubmit=\"vaciarCesta();\">";
     echo "<input type='submit' id='botonVaciarCesta' name='botonVaciarCesta' value='Vaciar Cesta' ";
     if ($cesta->vacia())
@@ -64,13 +62,11 @@ function muestraCestaCompra($cesta) {
 $xajax->register(XAJAX_FUNCTION, "vaciarCesta");
 $xajax->register(XAJAX_FUNCTION, "alaCesta");
 // Y configuramos la ruta en que se encuentra la carpeta xajax_js
-//$xajax->configure('javascript URI', './');
 $xajax->configure('javascript URI', './include/');
 //$xajax->configure('debug',true);
 // El método processRequest procesa las peticiones que llegan a la página
 // Debe ser llamado antes del código HTML
 $xajax->processRequest();
-/* fin para usar xajax */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- Desarrollo Web en Entorno Servidor -->
@@ -94,11 +90,6 @@ $xajax->processRequest();
             <div id="encabezado">
                 <h1>Listado de productos</h1>
             </div>
-            <!--para probar xajax-->
-            <form id='datos' action="javascript:void(null);" onsubmit="vaciarCesta();">
-                <input type='submit' id='enviar' name='enviar' value='Enviar' />
-            </form>
-            <!--fin para probar xajax-->
             <div id="cesta">
                 <?php
                 muestraCestaCompra($cesta);

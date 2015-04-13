@@ -8,8 +8,16 @@ En todas las pantallas hay que poner las librerias de xajax e inicializar el obj
 1. login.php
    - Tengo que cambiar algunas cosas para evitar notice en el log que me gusta que el log quede limpio.
 
-
 2. productos.php
-   - Tengo que cambiar algunas cosas para evitar notice en el log que me gusta que el log quede limpio.
-   - Uso Yeoman para crear el esqueleto de la aplicacíon.
-   - grunt para gestionar los js requeridod, dataTables, jqueryValidate, bootstrap y growl
+   - Cambio el action del formulario de productos para que llame a una función javascript alaCesta que esta en fcesta.js
+   - Cambio el botón de vaciar cesta para que llame a una función javascript vaciarCesta que esta en fcesta.js
+   - Registro las funciones que voy a usar
+   - Meto el javascript que necesito con printJavascript
+
+3. fcesta.js
+   - Las funciones llaman a las creadas por xajax que tienen nombre xajax_ y nombre de la función original
+   - Ademas activan botones si es necesario
+ 
+4. fcesta.php
+   - Las funciones llaman a las creadas por xajax que tienen nombre xajax_ y nombre de la función original
+   - Ademas activan botones si es necesario 

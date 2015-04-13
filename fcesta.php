@@ -1,5 +1,4 @@
 <?php
-
 require_once('include/CestaCompra.php');
 // Incluimos la librería Xajax
 require_once('include/xajax_core/xajax.inc.php');
@@ -34,7 +33,7 @@ function vaciarCesta($valores) {
         $respuesta->assign("comprarCesta", "disabled", true);
         $respuesta->assign("listaCesta", "innerHTML", '<p>Cesta vacía</p>');
     } else {
-        $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta... ");
+        $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta");
         $respuesta->assign("botonVaciarCesta", "disabled", false);
         $respuesta->assign("comprarCesta", "disabled", false);
     }
@@ -56,7 +55,7 @@ function alaCesta($producto) {
         $respuesta->assign("botonVaciarCesta", "disabled", true);
         $respuesta->assign("comprarCesta", "disabled", true);
     } else {
-        $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta... ");
+        $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta");
     }
     if ($cesta->vacia()) {
 //        print "<p>Cesta vacía</p>";
@@ -76,9 +75,6 @@ function alaCesta($producto) {
         }
     }
     $respuesta->assign("listaCesta", "innerHTML", $texto);
-//    $respuesta->assign("listaCesta", "innerHTML", $producto);
-//    $cesta->muestra();
-//    $error = false;
     return $respuesta;
 }
 ?>
