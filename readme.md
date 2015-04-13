@@ -17,7 +17,8 @@ En todas las pantallas hay que poner las librerias de xajax e inicializar el obj
 3. fcesta.js
    - Las funciones llaman a las creadas por xajax que tienen nombre xajax_ y nombre de la función original
    - Ademas activan botones si es necesario
+   - Estan las funciones del login y de productos
  
 4. fcesta.php
    - Las funciones llaman a las creadas por xajax que tienen nombre xajax_ y nombre de la función original
-   - Ademas activan botones si es necesario 
+   - Mostrar cesta se encarga de mostrar los productos y activar los botones

@@ -61,6 +61,7 @@ function muestraCestaCompra($cesta) {
 // Registramos la función que vamos a llamar desde JavaScript
 $xajax->register(XAJAX_FUNCTION, "vaciarCesta");
 $xajax->register(XAJAX_FUNCTION, "alaCesta");
+$xajax->register(XAJAX_FUNCTION, "mostrarCesta");
 // Y configuramos la ruta en que se encuentra la carpeta xajax_js
 $xajax->configure('javascript URI', './include/');
 //$xajax->configure('debug',true);
@@ -84,7 +85,7 @@ $xajax->processRequest();
         <script type="text/javascript" src="fcesta.js"></script>
     </head>
 
-    <body class="pagproductos">
+    <body class="pagproductos" onload="mostrarCesta();">
 
         <div id="contenedor">
             <div id="encabezado">

@@ -1,4 +1,5 @@
 <?php
+
 require_once('include/CestaCompra.php');
 // Incluimos la librería Xajax
 require_once('include/xajax_core/xajax.inc.php');
@@ -11,22 +12,35 @@ $xajax = new xajax();
 // Registramos la función que vamos a llamar desde JavaScript
 $xajax->register(XAJAX_FUNCTION, "alaCesta");
 $xajax->register(XAJAX_FUNCTION, "vaciarCesta");
+$xajax->register(XAJAX_FUNCTION, "mostrarCesta");
 
 // El método processRequest procesa las peticiones que llegan a la página
 // Debe ser llamado antes del código HTML
 $xajax->processRequest();
 
-function vaciarCesta($valores) {
-////    error_log("DEBUG: " . $valores['nombre']);
-//    error_log("DEBUG: " . $valores);
-    $respuesta = new xajaxResponse();
-//    $error = false;
-//
-//
-//    $respuesta->assign("enviar", "value", "Enviar");
-//    $respuesta->assign("enviar", "disabled", false);
+function vaciarCesta() {
+    // borramos la sesión
     unset($_SESSION['cesta']);
     $cesta = new CestaCompra();
+    $respuesta = new xajaxResponse();
+    return $respuesta;
+}
+
+function alaCesta($producto) {
+    error_log("DEBUG: a la cesta va " . $producto);
+    // Recuperamos la cesta de la compra
+    $cesta = CestaCompra::carga_cesta();
+    $cesta->nuevo_articulo($producto);
+    $cesta->guarda_cesta();
+    $respuesta = new xajaxResponse();
+    return $respuesta;
+}
+
+function mostrarCesta() {
+    error_log("DEBUG: mostrarCesta");
+    // Recuperamos la cesta de la compra
+    $cesta = CestaCompra::carga_cesta();
+    $respuesta = new xajaxResponse();
     if ($cesta->vacia()) {
         $respuesta->assign("botonVaciarCesta", "value", "Cesta Vacia");
         $respuesta->assign("botonVaciarCesta", "disabled", true);
@@ -36,45 +50,17 @@ function vaciarCesta($valores) {
         $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta");
         $respuesta->assign("botonVaciarCesta", "disabled", false);
         $respuesta->assign("comprarCesta", "disabled", false);
-    }
-    return $respuesta;
-}
-
-function alaCesta($producto) {
-    error_log("DEBUG: " . $producto);
-    // Recuperamos la cesta de la compra
-    $cesta = CestaCompra::carga_cesta();
-    $productos = $cesta->get_productos();
-    error_log("DEBUG:la cesta tiene  " . count($cesta));
-    error_log("DEBUG:la cesta tiene  " . count($productos));
-    $respuesta = new xajaxResponse();
-    $cesta->nuevo_articulo($producto);
-    $cesta->guarda_cesta();
-    if ($cesta->vacia()) {
-        $respuesta->assign("botonVaciarCesta", "value", "Cesta Vacia");
-        $respuesta->assign("botonVaciarCesta", "disabled", true);
-        $respuesta->assign("comprarCesta", "disabled", true);
-    } else {
-        $respuesta->assign("botonVaciarCesta", "value", "Vaciar cesta");
-    }
-    if ($cesta->vacia()) {
-//        print "<p>Cesta vacía</p>";
-        $respuesta->assign("listaCesta", "innerHTML", 'Cesta vacía');
-        $respuesta->assign("botonVaciarCesta", "disabled", false);
-        $respuesta->assign("comprarCesta", "disabled", false);
-    }
-    //  y si no está vacía, mostramos su contenido
-    else {
-        $cesta = CestaCompra::carga_cesta();
-        error_log("DEBUG:la cesta antes del for tiene  " . count($cesta));
         $productos = $cesta->get_productos();
-        error_log("DEBUG:la cesta antes del for tiene  " . count($productos));
+        error_log("DEBUG: la cesta tiene  " . count($productos) . " productos");
         $texto = '';
         foreach ($cesta->get_productos() as $producto) {
             $texto = $texto . "<p>" . $producto->getCodigo() . "</p>";
         }
+        $respuesta->assign("listaCesta", "innerHTML", $texto);
     }
-    $respuesta->assign("listaCesta", "innerHTML", $texto);
+
+    error_log("DEBUG:la cesta antes del for tiene  " . count($cesta));
+    // recuperamos los productos de la cesta
     return $respuesta;
 }
 ?>
