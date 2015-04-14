@@ -16,16 +16,16 @@ if (!isset($_SESSION['usuario']))
 $cesta = CestaCompra::carga_cesta();
 
 // Comprobamos si se ha enviado el formulario de vaciar la cesta
-//if (isset($_POST['vaciar'])) {
-//    unset($_SESSION['cesta']);
-//    $cesta = new CestaCompra();
-//}
+if (isset($_POST['vaciar'])) {
+    unset($_SESSION['cesta']);
+    $cesta = new CestaCompra();
+}
 
 // Comprobamos si se quiere añadir un producto a la cesta
-//if (isset($_POST['enviar'])) {
-//    $cesta->nuevo_articulo($_POST['cod']);
-//    $cesta->guarda_cesta();
-//}
+if (isset($_POST['enviar'])) {
+    $cesta->nuevo_articulo($_POST['cod']);
+    $cesta->guarda_cesta();
+}
 
 function creaFormularioProductos() {
     $productos = DB::obtieneProductos();
